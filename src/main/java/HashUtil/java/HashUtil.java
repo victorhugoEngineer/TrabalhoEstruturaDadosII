@@ -1,4 +1,4 @@
-package com.trabalho;
+package HashUtil.java;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
