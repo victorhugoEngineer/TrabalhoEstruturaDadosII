@@ -8,8 +8,9 @@ import java.util.Scanner;
  * Tema: Criptografia, Hash e Blockchain
  *
  * Aplicação em modo texto com menu interativo:
- *  1 - Criptografia e descriptografia (AES-256)
+ *  1 - Criptografar e descriptografar (AES-256)
  *  2 - Geração e comparação de hash (SHA-256)
+ *  3 - Descriptografar texto cifrado colado (Base64)
  *  0 - Sair
  */
 public class Main {
@@ -28,6 +29,9 @@ public class Main {
                 case 2:
                     atividade2();
                     break;
+                case 3:
+                    descriptografarColado();
+                    break;
                 case 0:
                     System.out.println("Encerrando o programa.");
                     break;
@@ -39,11 +43,12 @@ public class Main {
 
     private static void exibirMenu() {
         System.out.println();
-        System.out.println("==========================================");
-        System.out.println("   CRIPTOGRAFIA E HASH - ESTRUTURA DE DADOS II");
-        System.out.println("==========================================");
+        System.out.println("=========================================================================================");
+        System.out.println("                      CRIPTOGRAFIA E HASH - ESTRUTURA DE DADOS II");
+        System.out.println("=========================================================================================");
         System.out.println("1 - Criptografar e descriptografar (AES-256)");
         System.out.println("2 - Gerar e comparar hash (SHA-256)");
+        System.out.println("3 - Descriptografar texto cifrado colado (Base64)");
         System.out.println("0 - Sair");
         System.out.print("Escolha uma opção: ");
     }
@@ -136,6 +141,26 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println("Erro ao gerar hash: " + e.getMessage());
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Funcionalidade Extra: Descriptografar texto colado
+    // ------------------------------------------------------------------
+    private static void descriptografarColado() {
+        System.out.println("\n--- DESCRIPTOGRAFAR TEXTO COLADO ---");
+        System.out.print("Cole o texto cifrado ");
+        String textoCifradoColado = entrada.nextLine().trim();
+
+        System.out.print("Digite a senha correta: ");
+        String senhaDigitada = entrada.nextLine();
+
+        try {
+            String recuperado = CriptografiaAES.descriptografar(textoCifradoColado, senhaDigitada);
+            System.out.println("\n[OK] Texto descriptografado com sucesso!");
+            System.out.println("Mensagem original: " + recuperado);
+        } catch (Exception e) {
+            System.out.println("\n[ERRO] Falha na descriptografia! Verifique se a senha está correta ou se o texto cifrado é válido.");
         }
     }
 }
